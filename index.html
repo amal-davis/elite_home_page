@@ -1759,6 +1759,14 @@ a{
         font-size: 12px;
     }
   }
+  @media (max-width: 600px) {
+    .carousel-nav-prev,
+    .carousel-nav-next {
+      width: 30px; /* Decrease the button width */
+      height: 30px; /* Decrease the button height */
+      font-size: 10px; /* Adjust font size to match smaller button */
+    }
+  }
 </style>
 
 <body>
@@ -1986,29 +1994,46 @@ a{
             </p>
         </div>
     </div>
-    <div class="container">
-        <div class="owl-carousel owl-theme owl-carousel-custom"> <!-- Owl Carousel with custom pagination -->
-            <!-- Slide 1 -->
-            <div class="item" data-dot="Slide 1"> <!-- Data attribute for custom pagination -->
-              <img src="banner_1.png" class="d-block w-100" alt="..." style="filter: brightness(70%);">
-
-              <div class="carousel-caption" style="position: absolute; bottom: 10px; left: 10px;">
-                <h1 class="responsive-heading">ELITE SAMRUDDHI</h1> <!-- Responsive Heading -->
-                <p>KAZHAKOOTAM, TRIVANDRUM</p>
-              </div>
-            </div>
-          
-            <!-- Slide 2 -->
-            <div class="item" data-dot="Slide 2"> <!-- Data attribute for custom pagination -->
-              <img src="banner_elite.jpeg" class="d-block w-100" alt="..." style="filter: brightness(70%);">
-              <div class="carousel-caption" style="position: absolute; bottom: 10px; left: 10px;">
-                <h1 class="responsive-heading">Another Title</h1>
-                <p>Another Subtitle</p>
-              </div>
-            </div>
-
-          </div>
+<!-- Carousel container -->
+<div class="container">
+    <div class="owl-carousel owl-theme owl-carousel-custom">
+      <!-- Slide 1 -->
+      <div class="item" style="position: relative;">
+        <img src="banner_1.png" class="d-block w-100" alt="Slide 1" style="filter: brightness(70%);">
+        <div class="carousel-caption" style="position: absolute; bottom: 10px; left: 10px;">
+          <h1 class="responsive-heading">ELITE SAMRUDDHI</h1>
+          <p>KAZHAKOOTAM, TRIVANDRUM</p>
+        </div>
+  
+        <!-- Custom navigation buttons inside the slide -->
+      <!-- Custom navigation buttons with circular backgrounds -->
+      <div class="custom-nav-buttons" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%);">
+        <button class="btn-prev carousel-nav-prev" style="background: black; border: none; border-radius: 50%; width: 40px; height: 40px; color: white;"> <i class="fas fa-arrow-left"></i></button> <!-- Circular button -->
+      </div>
+      <div class="custom-nav-buttons" style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%);">
+        <button class="btn-next carousel-nav-prev" style="background: black; border: none; border-radius: 50%; width: 40px; height: 40px; color: white;"> <i class="fas fa-arrow-right"></i></button> <!-- Circular button -->
+      </div>
+      </div>
+  
+      <!-- Slide 2 -->
+      <div class="item" style="position: relative;">
+        <img src="banner_elite.jpeg" class="d-block w-100" alt="Slide 2" style="filter: brightness(70%);">
+        <div class="carousel-caption" style="position: absolute; bottom: 10px; left: 10px;">
+          <h1 class="responsive-heading">Another Title</h1>
+          <p>Another Subtitle</p>
+        </div>
+  
+        <!-- Custom navigation buttons inside the slide -->
+      <!-- Custom navigation buttons with circular backgrounds -->
+      <div class="custom-nav-buttons" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%);">
+        <button class="btn-prev carousel-nav-prev" style="background: black; border: none; border-radius: 50%; width: 40px; height: 40px; color: white;"> <i class="fas fa-arrow-left"></i></button> <!-- Circular button -->
+      </div>
+      <div class="custom-nav-buttons" style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%);">
+        <button class="btn-next carousel-nav-next" style="background: black; border: none; border-radius: 50%; width: 40px; height: 40px; color: white;"> <i class="fas fa-arrow-right"></i></button> <!-- Circular button -->
+      </div>
+      </div>
     </div>
+  </div>
 
       
 
@@ -2431,29 +2456,32 @@ a{
 
 
 
-// Initialize Owl Carousel with custom pagination
-$(".owl-carousel-custom").owlCarousel({
-  loop: true, // Carousel loops infinitely
-  items: 1, // Display one slide at a time
-  autoplay: true, // Enable autoplay
-  autoplayTimeout: 3000, // Time between slides
-  autoplayHoverPause: false, // Pause on hover
-  nav: false, // Enable navigation
-  navText: ["<", ">"], // Custom navigation text/icons
-  dots: false, // Enable pagination
-  animateOut: 'fadeOut',
-  dotsData: true, // Custom pagination (use data attributes)
-  responsive: {
-    0: {
-      items: 1, // Mobile view displays one slide
-    },
-    600: {
-      items: 1, // Tablet view displays one slide
-    },
-    1000: {
-      items: 1, // Desktop view displays one slide
-    },
-  },
+$(document).ready(function() {
+  // Initialize Owl Carousel with autoplay and other options
+  $(".owl-carousel-custom").owlCarousel({
+    loop: true,
+    items: 1,
+    autoplay: true,
+    autoplayTimeout: 3000,
+    autoplayHoverPause: false,
+    nav: false, // Navigation is handled manually with custom buttons
+    dots: true, // Optional: Custom pagination
+    animateOut: 'fadeOut',
+    responsive: {
+      0: { items: 1 },
+      600: { items: 1 },
+      1000: { items: 1 }
+    }
+  });
+
+  // Attach click event handlers for custom navigation buttons
+  $(".btn-prev").click(function() {
+    $(".owl-carousel-custom").trigger("prev.owl.carousel"); // Navigate to the previous slide
+  });
+
+  $(".btn-next").click(function() {
+    $(".owl-carousel-custom").trigger("next.owl.carousel"); // Navigate to the next slide
+  });
 });
 
 
