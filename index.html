@@ -1,0 +1,2749 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css"
+        integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@9/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+
+</head>
+<style>
+    body {
+        font-family: 'Poppins'; 
+
+    }
+
+    body.menu-active {
+        overflow: hidden;
+        /* Prevent scrolling when the menu is active */
+    }
+
+    /* .menu.active+.menu-overlay,
+body.menu-active .menu-overlay {
+    display: block;
+    opacity: 1;
+} */
+
+    .menu-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 998;
+        /* Set below the menu */
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+
+    .hero-section {
+        width: 100%;
+        height: 100vh;
+        background-image: url(elite-2.png);
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        z-index: 1;
+        /* Set a z-index to position it behind the header */
+        overflow: hidden;
+        /* Hide overflow for the blur effect */
+    }
+
+    /* Added styles for the hero heading */
+    .hero-heading {
+        position: absolute;
+        bottom: 250px;
+        left: 90px;
+        color: #ffffff;
+        font-size: 40px;
+        font-weight: 400;
+        z-index: 2;
+        /* Set a higher z-index to position it on top of the hero section */
+        line-height: 60px;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 1200px) {
+        .hero-heading {
+            font-size: 32px;
+            line-height: 44px;
+            bottom: 80px;
+            left: 40px;
+        }
+    }
+
+    @media (max-width: 992px) {
+        .hero-heading {
+            font-size: 38px;
+            line-height: 40px;
+            bottom: 420px;
+            left: 30px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .hero-heading {
+            font-size: 34px;
+            line-height: 36px;
+            bottom: 420px;
+            left: 20px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .hero-heading {
+            font-size: 30px;
+            line-height: 32px;
+            bottom: 420px;
+            left: 15px;
+        }
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: 93px;
+        padding: 20px;
+        /* Adjusted padding */
+        color: white;
+        position: fixed;
+        /* Make the header fixed */
+        top: 0;
+        /* Position it at the top */
+
+        z-index: 3;
+        /* Set a higher z-index to position it on top of the hero section */
+    }
+
+    .header-bg {
+        background-color: rgba(0, 0, 0, 0.7);
+        /* Added a background color to the header */
+    }
+
+    .menu-toggle {
+        cursor: pointer;
+    }
+
+    .hamburger {
+        width: 45px;
+        height: 2px;
+        background-color: #fff;
+        margin-bottom: 5px;
+    }
+
+    .hamburger-border {
+        width: 28px;
+        height: 2px;
+        background-color: #fff;
+    }
+
+    .logo img {
+        height: 40px;
+        width: 138px;
+    }
+
+    .phone-icon {
+        font-size: 24px;
+    }
+
+    .menu {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: -495px;
+        /* Initial position */
+        width: 495px;
+        height: 100vh;
+        background-color: rgba(59, 59, 59, 0.7);
+        z-index: 1000;
+        border-top-right-radius: 30px;
+        padding: 20px;
+        backdrop-filter: blur(5px);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        transition: left 0.12s ease;
+        /* Increased transition duration */
+    }
+
+    .menu.active {
+        display: block;
+        left: 0;
+        transition: left 0.12s ease;
+    }
+
+    .menu-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .menu-header h4 {
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 36px;
+    }
+
+    .menu-list {
+        list-style-type: none;
+        padding: 0;
+
+    }
+
+    .menu-link {
+        display: flex;
+        /* Make the menu link a flex container */
+        align-items: center;
+        /* Align items vertically within the flex container */
+        font-weight: 400;
+        margin-left: 40px;
+        font-size: 24px;
+        color: #ffffff;
+        text-decoration: none;
+        margin-bottom: 35px;
+        transition: margin-left 0.5s ease;
+        text-transform: uppercase;
+    }
+
+    .menu-link i {
+        margin-left: auto;
+        /* Keep this for pushing to the right side */
+    }
+
+    .connect-with-us {
+        margin-top: auto;
+    }
+
+    .connect-with-us h4 {
+        margin-left: 40px;
+        font-size: 20px;
+        text-transform: uppercase;
+        font-weight: 400;
+    }
+
+    .social-icons {
+        display: flex;
+        margin-left: 40px;
+    }
+
+    .social-icons ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .social-icons li {
+        display: inline-block;
+        margin-left: 10px;
+    }
+
+    .social-icons a {
+        display: block;
+        width: 21.88px;
+        height: 21.47px;
+        color: white;
+    }
+
+    .close-menu {
+        display: block;
+        text-align: center;
+        font-size: 24px;
+        color: #fff;
+        cursor: pointer;
+        font-weight: 600;
+    }
+
+    .sub-menu {
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 100%;
+        /* Adjusted to position the sub-menu to the left of the menu */
+        width: 247.5px;
+        height: 100%;
+        background-color: #111;
+        z-index: 1001;
+        border-top-right-radius: 30px;
+        padding: 20px;
+
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .sub-menu.active {
+        display: block;
+    }
+
+    .sub-menu .menu-link {
+        font-size: 20px;
+        margin-left: 0;
+        margin-bottom: 25px;
+        text-transform: uppercase;
+        transition: margin-left 0.5s ease;
+        color: #0ECA6D;
+    }
+
+    .sub-menu .menu-link:hover {
+        margin-left: 10px;
+    }
+
+    .sub-menu .sub-menu-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .sub-menu .close-submenu {
+        font-size: 20px;
+        color: #0ECA6D;
+        text-decoration: none;
+        transition: margin-left 0.5s ease;
+        text-transform: uppercase;
+    }
+
+    .sub-menu .close-submenu:hover {
+        margin-left: 10px;
+    }
+
+    a:hover {
+        text-decoration: none;
+        color: #fff;
+    }
+
+    /* Media Query for smaller screens */
+    @media (max-width: 992px) {
+        .menu {
+            width: 350px;
+            padding: 15px;
+        }
+
+        .menu-link {
+            font-size: 20px;
+        }
+
+        .phone-icon {
+            font-size: 20px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .header {
+            padding: 10px;
+        }
+
+        .menu-toggle {
+            display: block;
+        }
+
+        .menu {
+            display: block;
+            width: 250px;
+            left: -250px;
+        }
+
+        .menu.active {
+            left: 0;
+        }
+
+        .menu-link {
+            font-size: 20px;
+            /* Adjust font size for smaller screens */
+            margin-left: 20px;
+            /* Adjust margin for smaller screens */
+        }
+
+        .menu-link i {
+            margin-right: 3px;
+            /* Adjust icon position for smaller screens */
+        }
+
+        .phone-icon {
+            font-size: 18px;
+        }
+
+
+        .connect-with-us h4 {
+            font-size: 12px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .header {
+            padding: 7px;
+        }
+
+        .logo img {
+            height: 25px;
+            width: 80px;
+        }
+
+        .phone-icon {
+            font-size: 18px;
+        }
+    }
+
+    /* Hero Section Styles */
+
+
+    .buttons {
+        margin-bottom: 10px;
+    }
+
+    .owl-carousel-main {
+        position: relative;
+        width: 100%;
+
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .owl-carousel-main .item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        /* Full height */
+        width: 100%;
+        /* Full width to prevent overflow */
+    }
+
+    .owl-carousel-main .item img {
+        width: 100%;
+        /* Full width */
+        height: 100%;
+        /* Full height */
+        object-fit: cover;
+        /* Ensure images maintain proper aspect ratio */
+    }
+    .carousel-video {
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  object-fit: cover; /* Maintain aspect ratio and cover the area */
+  position: relative; /* Ensure it's in the same position as other slides */
+}
+
+
+    /* Overlay content on top of the image */
+    .carousel-content {
+        position: absolute;
+        bottom: 20px;
+        /* Aligns the content at the bottom */
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-between;
+        padding: 50px;
+        /* Adjust padding for content */
+
+    }
+
+    /* Left Section Styles */
+    .carousel-content-left {
+        flex: 1;
+        text-align: left;
+        color: white;
+    }
+
+    .carousel-content-left h2 {
+        margin: 0;
+        font-size: 1.5em;
+    }
+
+    .carousel-content-left .location {
+        font-size: 1em;
+    }
+
+    /* Middle Section Styles - Arrows displayed vertically */
+    .carousel-content-middle {
+        flex: 1;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        /* Aligns elements vertically */
+        justify-content: flex-end;
+        /* Aligns arrows at the bottom */
+    }
+
+    .arrows {
+        display: flex;
+        flex-direction: column;
+        /* Arranges arrows vertically */
+        align-items: center;
+        /* Center-aligned */
+    }
+
+    .arrows i {
+        color: white;
+        margin: 2px 0;
+        /* Decreased margin between arrows */
+    }
+
+    /* Animation for arrow brightness */
+    .arrow-fade-1 {
+        animation: fadeInOut 3s infinite;
+    }
+
+    .arrow-fade-2 {
+        animation: fadeInOut 3s infinite;
+        animation-delay: 0.5s;
+        /* Staggered effect */
+    }
+
+    .arrow-fade-3 {
+        animation: fadeInOut 3s infinite;
+        animation-delay: 1s;
+        /* Further staggered effect */
+    }
+
+    /* Right Section Styles */
+    .carousel-content-right {
+        flex: 1;
+        text-align: right;
+        color: white;
+    }
+
+    /* Right Section Styles */
+    .carousel-content-right {
+        flex: 1;
+        text-align: right;
+        color: white;
+    }
+
+    .price {
+        font-size: 1em;
+    }
+
+    .enquire-now {
+        background: transparent;
+        border: 1px solid white;
+        color: white;
+        padding: 10px 20px;
+        text-transform: uppercase;
+        cursor: pointer;
+        border-radius: 25px;
+        /* Makes the button oval */
+    }
+
+    .enquire-now:hover {
+        background: white;
+        color: black;
+    }
+
+    /* Animation keyframes */
+    @keyframes fadeInOut {
+
+        0%,
+        100% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0.5;
+        }
+    }
+
+    /* Responsive adjustments for smaller screens */
+    @media (max-width: 768px) {
+        .owl-carousel-main {
+            overflow-x: hidden;
+        }
+
+        .carousel-content {
+            padding: 10px;
+            /* Reduced padding for smaller screens */
+        }
+    }
+
+    @media (max-width: 576px) {
+
+        .carousel-content-left,
+        .carousel-content-middle,
+        .carousel-content-right {
+            font-size: 0.8em;
+            /* Smaller text on compact screens */
+        }
+    }
+
+    /* Responsive adjustments using media queries */
+    @media (max-width: 768px) {
+        .owl-carousel-main {
+
+            overflow-x: hidden;
+            /* Ensure no horizontal scrolling */
+        }
+
+        .header {
+            padding: 10px;
+            /* Adjusted padding */
+        }
+    }
+
+    @media (max-width: 576px) {
+        .owl-carousel-main {
+
+            overflow-x: hidden;
+            /* Prevent horizontal scrolling */
+        }
+
+
+    }
+
+    /* Responsive Design for Smaller Screens */
+    @media (max-width: 768px) {
+
+        /* Adjust padding for smaller screens */
+        .carousel-content {
+            padding: 15px;
+            /* Reduced padding for smaller screens */
+        }
+
+        .carousel-content-left h2 {
+            font-size: 1.2em;
+            /* Smaller font size */
+        }
+
+        .carousel-content-left .location {
+            font-size: 0.9em;
+            /* Smaller font size */
+        }
+
+        .carousel-content-middle {
+            padding: 0 10px;
+            /* Reduced padding */
+        }
+
+        .arrows i {
+            margin: 1px 0;
+            /* Smaller gap between arrows */
+        }
+
+        .carousel-content-right {
+            padding-left: 10px;
+            /* Reduced padding */
+        }
+
+        .price {
+            font-size: 0.9em;
+            /* Smaller font size for price */
+        }
+
+        .enquire-now {
+            padding: 8px 15px;
+            /* Reduced padding for smaller button */
+            border-radius: 20px;
+            /* Adjusted border radius for smaller shape */
+        }
+    }
+
+    @media (max-width: 576px) {
+
+        /* Additional adjustments for mobile view */
+        .carousel-content {
+            padding: 10px;
+            /* Further reduced padding */
+        }
+
+        .carousel-content-left h2 {
+            font-size: 1em;
+            /* Further smaller font size */
+        }
+
+        .carousel-content-left .location {
+            font-size: 0.8em;
+            /* Smaller font size */
+        }
+
+        .arrows i {
+            margin: 1px 0;
+            /* Smaller gap between arrows */
+        }
+
+        .carousel-content-right {
+            padding-left: 5px;
+            /* Further reduced padding */
+        }
+
+        .price {
+            font-size: 0.6em;
+            /* Smaller font size for price */
+        }
+
+        .enquire-now {
+            padding: 5px 8px;
+            /* Further reduced padding */
+            border-radius: 12px;
+            /* Adjusted border radius */
+        }
+    }
+
+/* Top heading with uppercase text and bold font */
+.top-heading {
+  font-weight: bold; /* Bold text */
+  text-transform: uppercase; /* Uppercase text */
+  font-size: 2em; /* Default font size for large screens */
+}
+
+/* Bottom heading with bold red text */
+.bottom-heading {
+  color: #f0483e; /* Red color */
+  font-weight: bold; /* Bold text */
+  text-transform: uppercase; /* Uppercase text */
+  font-size: 1.5em; /* Default font size for large screens */
+}
+
+/* Responsive font size for smaller screens */
+@media (max-width: 768px) { /* For tablets and smaller devices */
+  .top-heading {
+    font-size: 1.5em; /* Adjusted font size */
+  }
+  .bottom-heading {
+    font-size: 1.2em; /* Adjusted font size */
+  }
+}
+
+@media (max-width: 576px) { /* For mobile devices */
+  .top-heading {
+    font-size: 1.2em; /* Further reduced font size */
+  }
+  .bottom-heading {
+    font-size: 1em; /* Further reduced font size */
+  }
+}
+
+    /* Paragraph description */
+    .description {
+        font-size: 1em;
+        /* Default font size */
+        line-height: 1.5;
+        /* Line height for readability */
+        text-align: justify;
+        max-width: 663px;
+        font-size: 20px;
+        font-weight: 300;
+    }
+    /* Adjust font size for smaller screens */
+@media (max-width: 768px) { /* Tablets and smaller devices */
+  .description {
+    font-size: 18px; /* Slightly smaller font size */
+    max-width: 500px; /* Reduce maximum width */
+  }
+}
+
+@media (max-width: 576px) { /* Mobile devices */
+  .description {
+    font-size: 16px; /* Further smaller font size */
+    max-width: 400px; /* Smaller maximum width */
+  }
+}
+
+    .btnsy {
+  text-transform: uppercase; /* Uppercase text */
+  padding: 10px 20px; /* Padding for medium-to-large screens */
+  width: 180px; /* Fixed width for larger screens */
+  border-radius: 20px; /* Rounded corners */
+  background-color: #f0483e; /* Red color */
+  color: #ffffff; /* White text */
+  border: none; /* No border */
+  text-align: center; /* Center text within the button */
+  transition: all 0.3s; /* Smooth hover effect */
+}
+
+/* Responsive padding for smaller screens */
+@media (max-width: 768px) { /* For tablets and smaller devices */
+  .btnsy {
+    padding: 8px 15px; /* Reduce padding */
+    width: 150px; /* Reduce width */
+  }
+}
+
+@media (max-width: 576px) { /* For mobile devices */
+  .btnsy {
+    padding: 6px 10px; /* Further reduce padding */
+    width: 120px; /* Smaller button width */
+  }
+}
+
+    .heading-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+
+    }
+
+    .line {
+        flex-grow: 1;
+        /* Lines will fill up the space */
+        border: none;
+        height: 1px;
+        background-image: linear-gradient(to left, rgba(0, 0, 0, 0.75), rgba(255, 255, 255, 0));
+        /* Gradient line */
+        margin: 0 10px;
+        /* Spacing around the text */
+    }
+
+    .line2 {
+        flex-grow: 1;
+        /* Lines will fill up the space */
+        border: none;
+        height: 1px;
+        background-image: linear-gradient(to right, rgba(0, 0, 0, 0.75), rgba(255, 255, 255, 0));
+        /* Gradient line */
+        margin: 0 10px;
+        /* Spacing around the text */
+    }
+
+    .heading-text {
+        white-space: nowrap;
+        padding: 0 10px;
+        /* Spacing around the text */
+
+        color: #000;
+        /* Text color */
+        font-size: 20px;
+        /* Adjust the font size as needed */
+        font-weight: bold;
+        /* Adjust font weight as needed */
+    }
+    .heading-containers {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+
+    }
+
+    .lines {
+        flex-grow: 1;
+        /* Lines will fill up the space */
+        border: none;
+        height: 1px;
+        background-image: linear-gradient(to left, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0));
+        /* Gradient line */
+        margin: 0 10px;
+        /* Spacing around the text */
+    }
+
+    .lines2 {
+        flex-grow: 1;
+        /* Lines will fill up the space */
+        border: none;
+        height: 1px;
+        background-image: linear-gradient(to right, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0));
+
+        /* Gradient line */
+        margin: 0 10px;
+        /* Spacing around the text */
+    }
+
+    .heading-texts {
+        white-space: nowrap;
+        padding: 0 10px;
+        /* Spacing around the text */
+
+        color: #fff;
+        /* Text color */
+        font-size: 20px;
+        /* Adjust the font size as needed */
+        font-weight: bold;
+        /* Adjust font weight as needed */
+    }
+
+
+    .project-text p {
+        color: rgba(0, 0, 0, 1);
+        font-size: 22px;
+        font-weight: 300;
+        text-align: center;
+    }
+    @media (max-width: 768px) { /* For tablets and smaller devices */
+  .project-text p {
+    font-size: 20px; /* Slightly smaller font size */
+  }
+}
+
+@media (max-width: 576px) { /* For mobile devices */
+  .project-text p {
+    font-size: 18px; /* Further reduced font size */
+  }
+}
+
+
+    @media screen and (orientation: landscape) {
+        .carousel img {
+            height: 100vh;
+        }
+    }
+
+    /* Styling for Swiper Slides */
+    .swiper-slide img {
+        width: 100%;
+        /* Full-width image */
+        height: auto;
+        /* Maintains aspect ratio */
+    }
+
+    /* Zoom-in effect for carousel images */
+    .image-container {
+        overflow: hidden;
+        /* Prevents image from overflowing on zoom */
+    }
+
+    .carousel-images {
+        width: 100%;
+        /* Full-width image */
+        height: auto;
+        /* Maintains aspect ratio */
+        transition: transform 0.3s ease-in-out;
+        /* Smooth transition for zoom */
+    }
+
+    .carousel-images:hover {
+        transform: scale(1.1);
+        /* Zoom-in effect */
+    }
+
+    /* Styling for carousel heading */
+    .carousel-heading {
+        text-align: center;
+        /* Center the heading */
+        margin-top: 10px;
+        /* Margin above the heading */
+        font-size: 1.2em;
+        /* Adjust font size as needed */
+        font-weight: bold;
+        /* Bold text */
+    }
+
+    /* Custom styling for navigation buttons */
+    .swiper-button-prev.custom-prev,
+    .swiper-button-next.custom-next {
+        background-color: rgba(0, 0, 0, 0.5);
+        /* Semi-transparent background */
+        padding: 10px;
+        /* Ensures space within the circle */
+        border-radius: 50%;
+        /* Circular shape */
+        width: 40px;
+        /* Equal width and height */
+        height: 40px;
+        /* Equal width and height */
+        display: flex;
+        /* Centering content */
+        justify-content: center;
+        /* Centering icon */
+        align-items: center;
+        /* Centering icon */
+        color: white;
+        /* Icon color */
+    }
+
+    .swiper-button-prev.custom-prev:after,
+    .swiper-button-next.custom-next:after {
+        font-size: 20px;
+        /* Size of the icon */
+    }
+
+    /* Custom styling for pagination */
+    .swiper-pagination {
+        position: absolute;
+        bottom: 10px;
+        /* Position at the bottom */
+
+        text-align: center;
+        /* Centered pagination */
+
+    }
+
+    .swiper-pagination-bullet {
+        background-color: grey;
+        /* Default color for inactive bullets */
+        opacity: 0.7;
+        /* Slight transparency */
+    }
+
+    .swiper-pagination-bullet-active {
+        background-color: #333;
+        /* Darker grey for active bullets */
+    }
+
+    /* Styling for the bottom button container */
+    .bottom-button-container {
+        text-align: center;
+        /* Center the button */
+        padding-top: 20px;
+        /* Add space above the button */
+    }
+
+    /* Styling for the button with no border radius */
+    .bottom-button {
+        background-color: #F0483E;
+        /* Red background */
+        color: white;
+        /* White text */
+        border: none;
+        /* No border */
+        padding: 10px 20px;
+        /* Padding for button size */
+        border-radius: 0;
+        /* Straight edges (no rounding) */
+        text-transform: uppercase;
+        /* Uppercase text */
+        cursor: pointer;
+        /* Cursor changes to pointer on hover */
+    }
+
+    .bottom-button:hover {
+        background-color: #cc0000;
+        /* Darker red on hover */
+    }
+
+    .mission-text h2 {
+        font-weight: 600;
+        font-size: 36px;
+        line-height: 54px;
+        text-align: center;
+        text-align: center;
+    }
+
+    /* Media query for smaller screens */
+    @media only screen and (max-width: 600px) {
+        .mission-text h2 {
+            font-size: 24px;
+            /* Smaller font size */
+            line-height: 36px;
+            /* Adjusted line height */
+        }
+    }
+
+    /* Media query for medium screens */
+    @media only screen and (min-width: 601px) and (max-width: 1024px) {
+        .mission-text h2 {
+            font-size: 30px;
+            /* Medium font size */
+            line-height: 45px;
+            /* Adjusted line height */
+        }
+    }
+
+    .section {
+        display: flex;
+        /* Using flexbox for horizontal layout */
+        justify-content: space-around;
+        /* Distribute evenly */
+        padding: 20px;
+        /* Padding for spacing */
+    }
+
+    .part {
+        text-align: center;
+        /* Center the text */
+    }
+
+    .part h2 {
+        font-weight: 600;
+        font-size: 32px;
+        line-height: 48px;
+        letter-spacing: 2%;
+    }
+
+    .part p {
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 36px;
+    }
+
+    /* Media query for smaller screens */
+    @media only screen and (max-width: 600px) {
+        .part h2 {
+            font-size: 24px;
+            /* Smaller font size for heading */
+            line-height: 30px;
+            /* Adjusted line height */
+            letter-spacing: 1%;
+            /* Reduced letter spacing */
+        }
+
+        .part p {
+            font-size: 19px;
+            /* Smaller font size for paragraph */
+            line-height: 24px;
+            /* Adjusted line height */
+        }
+    }
+
+    /* Media query for medium screens */
+    @media only screen and (min-width: 601px) and (max-width: 1024px) {
+        .part h2 {
+            font-size: 28px;
+            /* Medium font size for heading */
+            line-height: 42px;
+            /* Adjusted line height */
+            letter-spacing: 1.5%;
+            /* Reduced letter spacing */
+        }
+
+        .part p {
+            font-size: 20px;
+            /* Medium font size for paragraph */
+            line-height: 30px;
+            /* Adjusted line height */
+        }
+    }
+
+
+    .divider {
+        border-left: 2px solid #fff;
+        /* 2px solid black border */
+        height: 60px;
+        /* Adjust based on section height */
+        align-self: center;
+        /* Align in the center */
+    }
+
+    @media only screen and (max-width: 600px) {
+
+        /* Media query for responsive layout */
+        .section {
+            flex-direction: column;
+            /* Stack vertically */
+            align-items: center;
+            /* Center content */
+        }
+
+        .divider {
+            display: none;
+            /* Hide the divider in the vertical layout */
+        }
+    }
+
+    .vision-paragraph p {
+        font-weight: 200;
+        font-size: 28px;
+        line-height: 36px;
+        text-align: center;
+
+    }
+
+    /* Media query for smaller screens */
+    @media only screen and (max-width: 600px) {
+        .vision-paragraph p {
+            font-size: 20px;
+            /* Smaller font size */
+            line-height: 28px;
+            /* Adjusted line height */
+        }
+    }
+
+    /* Media query for medium screens */
+    @media only screen and (min-width: 601px) and (max-width: 1024px) {
+        .vision-paragraph p {
+            font-size: 24px;
+            /* Medium font size */
+            line-height: 32px;
+            /* Corresponding line height */
+        }
+    }
+
+    .view-btn {
+        background-color: #F0483E;
+        color: #ffffff;
+        margin: 0 auto;
+    }
+    .cust-para p{
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 36px;
+        text-align: center;
+    }
+    /* Media query for smaller screens */
+@media only screen and (max-width: 600px) {
+  .cust-para p {
+    font-size: 18px; /* Smaller font size for smaller screens */
+    line-height: 27px; /* Adjusted line height */
+    margin-top: 10px; /* Reduce margin-top */
+  }
+}
+
+/* Media query for medium screens */
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+  .cust-para p {
+    font-size: 20px; /* Medium font size */
+    line-height: 30px; /* Corresponding line height */
+    margin-top: 15px; /* Adjusted margin-top */
+  }
+}
+.owle{
+    text-align: center;
+}
+iframe {
+  max-width: 100%; /* Ensure iframe is responsive */
+ }
+ /* styles.css */
+.carousel-navigation {
+  text-align: center; /* Center the navigation buttons */
+  margin-top: 20px; /* Add space between carousel and buttons */
+}
+
+.custom-nav-btn {
+  background-color: #F0483E; /* Dark background for contrast */
+  color: white; /* White text for visibility */
+  border: none; /* No border for clean look */
+  padding: 10px 20px; /* Padding for button */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: all 0.3s; /* Smooth transition on hover */
+}
+
+.custom-nav-btn:hover {
+  background-color: #555; /* Lighter background on hover */
+}
+.what-text p{
+    font-weight: 400;
+        font-size: 24px;
+        line-height: 36px;
+        text-align: center;  
+}
+@media only screen and (max-width: 600px) {
+    .what-text p{
+    font-size: 18px; /* Smaller font size for smaller screens */
+    line-height: 27px; /* Adjusted line height */
+    margin-top: 10px; /* Reduce margin-top */
+  }
+}
+
+/* Media query for medium screens */
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+    .what-text p{
+    font-size: 20px; /* Medium font size */
+    line-height: 30px; /* Corresponding line height */
+    margin-top: 15px; /* Adjusted margin-top */
+  }
+}
+.image-what {
+  overflow: hidden; /* Ensures that the image doesn't overflow its container */
+  cursor: pointer;
+}
+
+.image-what img {
+  transition: transform 0.5s ease; /* Smooth transition for the zoom effect */
+}
+
+.image-what:hover img {
+  transform: scale(1.2); /* Scale up the image to create the zoom effect */
+}
+.find-heading h2{
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 54px;
+    text-align: justify;
+}
+/* Responsive adjustment for smaller screens */
+@media (max-width: 768px) { /* For tablets and smaller devices */
+  .find-heading h2 {
+    font-size: 30px; /* Smaller font size */
+    line-height: 45px; /* Adjusted line height */
+  }
+}
+
+@media (max-width: 576px) { /* For mobile devices */
+  .find-heading h2 {
+    font-size: 24px; /* Further reduced font size */
+    line-height: 36px; /* Adjusted line height */
+  }
+  .custom-section{
+    width: 100%;
+  }
+}
+.fin-para p{
+font-weight: 400;
+font-size: 20px;
+line-height: 30px;
+text-align: justify;
+}
+/* Responsive adjustment for smaller screens */
+@media (max-width: 768px) { /* For tablets and smaller devices */
+  .fin-para p {
+    font-size: 18px; /* Adjust font size for smaller screens */
+    line-height: 28px; /* Adjust line height */
+  }
+}
+
+@media (max-width: 576px) { /* For mobile devices */
+  .fin-para p {
+    font-size: 16px; /* Further reduced font size */
+    line-height: 26px; /* Adjusted line height */
+  }
+}
+.read-btn{
+    background-color: #F0483E;
+    color: #ffffff;
+    border-radius: 20px;
+}
+.news-heading h4{
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 30px;
+    
+}
+/* Responsive adjustment for smaller screens */
+@media (max-width: 768px) { /* For tablets and smaller devices */
+  .news-heading {
+    font-size: 18px; /* Slightly smaller font size */
+    line-height: 28px; /* Adjusted line height */
+  }
+}
+
+@media (max-width: 576px) { /* For mobile devices */
+  .news-heading {
+    font-size: 16px; /* Further reduced font size */
+    line-height: 26px; /* Adjusted line height */
+  }
+}
+.social-media-content {
+  padding: 20px; /* Add padding for inner container */
+}
+
+.instagram-col, .facebook-col, .twitter-col {
+  padding-top: 20px; /* Consistent padding for all columns */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) { /* For tablets and smaller devices */
+  .social-media-container {
+    padding-left: 10px; /* Adjust padding for smaller screens */
+    padding-right: 10px;
+  }
+
+  .instagram-col, .facebook-col, .twitter-col {
+    padding-top: 10px; /* Adjust padding for smaller screens */
+  }
+}
+
+@media (max-width: 576px) { /* For mobile devices */
+  .instagram-col, .facebook-col, .twitter-col {
+    padding-top: 15px; /* Further reduced padding for mobile */
+  }
+}
+.footer {
+    background: #0C0C0C;
+    width: 100%;
+ /* Dark background color */
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+}
+
+.logo-section img {
+    margin-bottom: 10px; /* Margin between logo and vertical line */
+}
+
+.vertical-line {
+    border-left: 1px solid #fff; /* Vertical line */
+    height: 80px; /* Adjust height as needed */
+    margin-left: 15px; /* Adjust margin as needed */
+}
+.footer h5 {
+    color: #fff; /* Heading color */
+}
+.title{
+    font-family: Poppins;
+font-size: 18px;
+font-weight: 400;
+line-height: 27px;
+text-align: left;
+margin-left: 20px;
+gap: 0px;
+opacity: 0px;
+
+}
+.p{
+    font-family: Poppins;
+font-size: 16px;
+font-weight: 300;
+line-height: 24px;
+letter-spacing: 0.02em;
+text-align: left;
+
+}
+
+
+
+
+.address{
+font-size: 16px;
+font-weight: 300;
+line-height: 24px;
+letter-spacing: 0.02em;
+text-align: left;
+
+}
+.h5{
+font-size: 24px;
+font-weight: 500;
+line-height: 36px;
+letter-spacing: 0.02em;
+text-align: left;
+
+}
+.h6
+{
+font-size: 20px;
+font-weight: 500;
+line-height: 30px;
+text-align: left;
+
+}
+.with-line {
+    position: relative;
+    display: inline-block;
+}
+
+.with-line::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: rgb(238, 229, 229); /* Adjust as needed */
+}
+
+
+
+
+.subscription-input {
+    border-right: none;
+    border-radius: 5px 0 0 5px;
+    border: 1px solid #F0483E;
+    width: 100%;
+
+gap: 0px;
+border: 1px 0px 0px 0px;
+opacity: 0px;
+background-color: #0C0C0C;
+
+}
+.subscription-input::placeholder {
+  color: #ffffff; /* Gray color for placeholder text */
+  opacity: 1; /* Ensures full opacity */
+  font-size: 10px; /* Adjust this value as needed */
+}
+
+
+.subscription-box button {
+    border-left: none;
+    border-radius: 0 5px 5px 0;
+    
+}
+
+.subscription-box button:hover {
+    background-color: red; /* Change button background color on hover */
+    color: white; /* Change button text color on hover */
+    margin-left: 150px;
+}
+
+@media (max-width: 768px) {
+    .title {
+        font-size: 16px;
+        line-height: 24px;
+        margin-left: 5px;
+    }
+    .p {
+        font-size: 14px;
+        line-height: 20px;
+    }
+    .address,
+    .h5,
+    .h6 {
+        font-size: 14px;
+        line-height: 20px;
+    }
+    
+    .subscription-input {
+        width: 70%; /* Adjust as needed */
+        max-width: 300px; /* Set maximum width for smaller screens */
+        border-radius: 0px;
+    }
+    .subscription-box button {
+        margin-left: 0;
+        width: 30%; /* Adjust as needed */
+        max-width: 100px; /* Set maximum width for smaller screens */
+    }
+}
+.follow-icons {
+    display: flex;
+    justify-content: center; /* Center the icons horizontally */
+    margin-top: 30px; /* Adjust margin as needed */
+    color: #f8f2f2;
+}
+
+.follow-icons a {
+    margin-right: 10px; /* Adjust margin between icons */
+    color: #d8cece;
+}
+
+/* Media query for responsiveness */
+@media (max-width: 768px) {
+    .follow-icons {
+        margin-left: 0;
+        justify-content: center;
+    }
+}
+/* Responsive styles for smaller screens (tablet view) */
+@media (max-width: 768px) {
+    .footer .row {
+        flex-direction: column; /* Stack vertically */
+        gap: 20px; /* Space between sections */
+    }
+    
+    .footer .col-md-4, .footer .col-md-2 {
+        width: 100%; /* Full width on smaller screens */
+        padding: 20px 0; /* Padding for sections */
+    }
+    
+    .p, .address, .footer h5 {
+        font-size: 14px; /* Smaller font size */
+        line-height: 20px; /* Adjusted line height */
+    }
+
+    /* Adjust subscription box for smaller screens */
+    .subscription-box {
+        flex-direction: column; /* Stack vertically */
+        align-items: stretch; /* Stretch to full width */
+    }
+
+    .subscription-input {
+        width: 100%; /* Full width */
+    }
+
+    .subscription-box button {
+        width: 100%; /* Full width */
+    }
+    
+    /* Adjust follow icons */
+    .follow-icons {
+        justify-content: center; /* Center icons */
+        flex-wrap: wrap; /* Allow icons to wrap */
+    }
+    
+    .follow-icons a {
+        margin-right: 10px; /* Adjust spacing */
+        margin-bottom: 10px; /* Space for wrapping */
+    }
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+    .footer {
+        padding: 30px 15px; /* Adjust padding for smaller screens */
+    }
+
+    .footer .row {
+        flex-direction: column; /* Stack sections vertically */
+        gap: 15px; /* Space between sections */
+    }
+    
+    .footer .col-md-4,
+    .footer .col-md-2 {
+        width: 100%; /* Full width for each section */
+        padding: 10px 0; /* Adjust padding */
+    }
+
+    /* Adjust font sizes */
+    .footer h5,
+    .footer h6 {
+        font-size: 18px; /* Smaller font size */
+        line-height: 24px; /* Adjusted line height */
+    }
+
+    .address, 
+    .p {
+        font-size: 14px; /* Smaller font size */
+        line-height: 22px; /* Adjusted line height */
+    }
+    
+    /* Adjust subscription box layout */
+    
+    /* Adjust follow icons */
+    .follow-icons {
+        justify-content: center; /* Center icons */
+        margin-top: 20px; /* Margin above icons */
+    }
+
+    .follow-icons a {
+        margin-right: 10px; /* Space between icons */
+        margin-bottom: 10px; /* Add space for wrapping */
+    }
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+    .footer .row {
+        flex-direction: column; /* Stack vertically */
+        gap: 20px; /* Space between sections */
+    }
+    
+    /* Ensure sections take up full width */
+    .footer .col-md-4,
+    .footer .col-md-2 {
+        width: 100%; /* Full width */
+        padding: 20px; /* Padding for each section */
+    }
+}
+@media (max-width: 576px) {
+    .footer {
+        padding: 20px; /* Padding for the entire footer on mobile screens */
+    }
+
+    /* Adjust padding for inner elements to maintain spacing */
+    .footer .row {
+        gap: 10px; /* Adjust gap between sections */
+    }
+}
+.form-control{
+    border-radius: 0px;
+}
+a{
+    text-decoration: none;
+}
+.whatsapp-icon {
+    position: fixed;
+    right: 20px;
+    bottom: 30px;
+    /* Adjust this value as needed */
+    z-index: 1000;
+    /* Set a high z-index value */
+    animation: bounce 2s infinite;
+  }
+  
+/* Styling for the Chat Window */
+.chat-window {
+  position: fixed; /* Fixed position */
+  bottom: 80px; /* Position from the bottom */
+  right: 20px; /* Position from the right */
+  width: 300px; /* Chat window width */
+  background: white; /* Background color */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2); /* Light shadow */
+  z-index: 1000; /* High z-index to ensure it's on top */
+}
+
+.chat-header {
+  display: flex; /* Flex layout for header */
+  justify-content: space-between; /* Spaced header items */
+  padding: 10px; /* Padding */
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.chat-content {
+  height: 200px; /* Chat content height */
+  overflow-y: auto; /* Enable scrolling */
+  padding: 10px; /* Padding */
+}
+
+.chat-input {
+  display: flex; /* Flex layout */
+  padding: 10px; /* Padding */
+}
+
+.chat-input input {
+  flex: 1; /* Input takes most space */
+  padding: 5px; /* Padding */
+}
+
+.chat-input button {
+  padding: 5px 10px; /* Padding for send button */
+}
+.close-chat-button {
+  background-color: transparent; /* No background */
+  border: none; /* No border */
+  color: white; /* White color */
+  cursor: pointer; /* Cursor changes to pointer */
+  padding: 5px; /* Padding */
+  font-size: 16px; /* Font size for the icon */
+}
+
+.close-chat-button:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Background on hover */
+  border-radius: 5px; /* Rounded corners on hover */
+}
+/* Style for User Messages */
+.user-message {
+  background-color: #e0f7fa; /* Light blue background */
+  color: #004d40; /* Dark teal text color */
+  padding: 8px; /* Padding */
+  border-radius: 10px; /* Rounded corners */
+  margin: 5px 0; /* Margin */
+  text-align: right; /* Align text to the right */
+  float: right; /* Align message to the right */
+  max-width: 60%; /* Restrict width */
+}
+
+/* Style for Bot Responses */
+.bot-message {
+  background-color: #e8f5e9; /* Light green background */
+  color: #1b5e20; /* Dark green text color */
+  padding: 8px; /* Padding */
+  border-radius: 10px; /* Rounded corners */
+  margin: 5px 0; /* Margin */
+  text-align: left; /* Align text to the left */
+  float: left; /* Align message to the left */
+  max-width: 60%; /* Restrict width */
+  clear: both; /* Clear float */
+}
+
+/* Base Style for the "Send" Button */
+.send-button {
+  background-color: #1b5e20; /* Green background color */
+  color: white; /* White text color */
+  border: none; /* No border */
+  padding: 10px 20px; /* Padding for comfortable size */
+  border-radius: 0px; /* Rounded corners */
+  cursor: pointer; /* Cursor changes to pointer */
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
+  font-weight: bold; /* Bold text */
+  text-transform: uppercase; /* Uppercase text */
+}
+
+/* Hover Effect for the "Send" Button */
+.send-button:hover {
+  background-color: #388E3C; /* Darker green on hover */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Light shadow on hover */
+}
+
+@media (max-width: 768px) {
+  .learn-btn {
+    padding: 8px 15px; /* Reduced padding for smaller screens */
+    font-size: 0.9em; /* Smaller font size */
+  }
+}
+
+@media (max-width: 576px) {
+  .learn-btn {
+    padding: 5px 10px; /* Further reduced padding for mobile view */
+    font-size: 0.8em; /* Smaller font size */
+  }
+}
+  /* Default font size */
+  .responsive-heading {
+    font-size: 2rem; /* Base size for larger screens */
+    font-weight: bold;
+    color: white;
+  }
+
+  /* Media queries for smaller screens */
+  @media (max-width: 768px) {
+    .responsive-heading {
+      font-size: 1.5rem; /* Decrease size for tablets */
+    }
+  }
+
+  @media (max-width: 480px) {
+    .responsive-heading {
+      font-size: 14px; /* Decrease size for smaller devices like phones */
+    }
+    .carousel-caption p{
+        font-size: 12px;
+    }
+  }
+</style>
+
+<body>
+
+
+
+    <!-- Hero Section -->
+
+
+    <div class="header">
+        <div class="menu-toggle">
+            <div class="hamburger"></div>
+            <div class="hamburger-border"></div>
+        </div>
+        <div class="logo">
+            <img src="ezgif.com-webp-to-png-converter (1).png" alt="Logo">
+        </div>
+        <div class="phone-icon" style="color: #fff;">
+            <i class="fas fa-phone"></i>
+        </div>
+        <div class="menu">
+            <!-- Menu items will go here -->
+            <div class="menu-header">
+                <h4 style="color: transparent;">.</h4>
+                <i class='fas fa-times fa-xs close-menu'></i>
+            </div>
+            <ul class="menu-list mt-5">
+                <li><a href="#" class="menu-link lead">Home</a></li>
+                <li><a href="#" class="menu-link lead with-arrow">Who We Are<i class="fas fa-arrow-right"></i></a>
+                    <ul class="sub-menu">
+                        <li class="sub-menu-header">
+                            <a href="#" class="close-submenu"><i class="fas fa-arrow-left"></i> Back</a>
+                        </li>
+                        <li><a href="#" class="menu-link lead">Sub Menu Item 1</a></li>
+                        <li><a href="#" class="menu-link lead">Sub Menu Item 2</a></li>
+                        <li><a href="#" class="menu-link lead">Sub Menu Item 3</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="menu-link lead with-arrow">Service&nbsp;&nbsp;&nbsp;<i
+                            class="fas fa-arrow-right"></i></a>
+                    <ul class="sub-menu">
+                        <li class="sub-menu-header">
+                            <a href="#" class="close-submenu"><i class="fas fa-arrow-left"></i> Back</a>
+                        </li>
+                        <li><a href="#" class="menu-link lead">Sub Menu Item 4</a></li>
+                        <li><a href="#" class="menu-link lead">Sub Menu Item 5</a></li>
+                        <li><a href="#" class="menu-link lead">Sub Menu Item 6</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="menu-link lead with-arrow">Projects <i class="fas fa-arrow-right"></i></a>
+                    <ul class="sub-menu">
+                        <li class="sub-menu-header">
+                            <a href="#" class="close-submenu"><i class="fas fa-arrow-left"></i> Back</a>
+                        </li>
+                        <li><a href="#" class="menu-link lead">Sub Menu Item 7</a></li>
+                        <li><a href="#" class="menu-link lead">Sub Menu Item 8</a></li>
+                        <li><a href="#" class="menu-link lead">Sub Menu Item 9</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="menu-link lead with-arrow">Blogs<i class="fas fa-arrow-right"></i></a>
+                    <ul class="sub-menu">
+                        <li class="sub-menu-header">
+                            <a href="#" class="close-submenu"><i class="fas fa-arrow-left"></i> Back</a>
+                        </li>
+                        <li><a href="#" class="menu-link lead">Sub Menu Item 10</a></li>
+                        <li><a href="#" class="menu-link lead">Sub Menu Item 11</a></li>
+                        <li><a href="#" class="menu-link lead">Sub Menu Item 12</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="menu-link lead with-arrow">Loans <i class="fas fa-arrow-right"></i></a>
+                    <ul class="sub-menu">
+                        <li class="sub-menu-header">
+                            <a href="#" class="close-submenu"><i class="fas fa-arrow-left"></i> Back</a>
+                        </li>
+                        <li><a href="#" class="menu-link lead">Sub Menu Item 13</a></li>
+                        <li><a href="#" class="menu-link lead">Sub Menu Item 14</a></li>
+                        <li><a href="#" class="menu-link lead">Sub Menu Item 15</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="menu-link lead">Contact Us</a></li>
+            </ul>
+            <div class="connect-with-us mt-5">
+                <h4>Connect with us</h4>
+                <div class="social-icons ">
+                    <ul>
+                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="#"><i class="fab fa-whatsapp"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="menu-overlay"></div> <!-- Menu Overlay -->
+<!-- Floating WhatsApp Icon -->
+<div class="whatsapp-icon" onclick="openChatWindow()">
+    <img src="WhatsApp_icon.png.webp" alt="WhatsApp" style="width: 70px; height: 70px;" />
+  </div>
+  <!-- Hidden Chat Window -->
+<div class="chat-window" id="chat-window" style="display: none;"> <!-- Hidden initially -->
+    <div class="chat-header" style="background-color: #095e54;"> <!-- Chat header -->
+      <h4 class="text-white">Chat with Us</h4>
+      <button onclick="closeChatWindow()" class="close-chat-button"> <!-- Styled close button -->
+        <!-- "X" icon using SVG -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41l5.59 5.59L5 17.59 6.41 19l5.59-5.59 5.59 5.59L19 17.59l-5.59-5.59L19 6.41z" />
+        </svg>
+      </button>
+    </div>
+    <div class="chat-content" id="chat-content"> <!-- Chat content area -->
+      <!-- Bot messages and user messages will be displayed here -->
+    </div>
+    <div class="chat-input"> <!-- Input area -->
+      <input type="text" id="user-input" placeholder="Type your message..." />
+      <button onclick="sendMessage()" class="send-button">Send</button> <!-- Styled "Send" button -->
+
+    </div>
+  </div>
+  
+
+    <div class="owl-carousel owl-theme owl-carousel-main">
+        <div class="item">
+            <video autoplay loop muted class="carousel-video"> <!-- Autoplay, loop, and mute the video -->
+                <source src="River_Flowing_Aerial_shot.mp4" type="video/mp4"> <!-- Video source -->
+                Your browser does not support the video tag.
+              </video>
+            <div class="carousel-content">
+                <div class="carousel-content-left">
+                    <h2>Elite Paradiza</h2>
+                    <div class="location">
+                        <i class="fa fa-map-marker"></i> Kuttoor, Thrissur, Kerala
+                    </div>
+                </div>
+                <div class="carousel-content-middle">
+                    <div class="arrows">
+                        <i class="fa fa-chevron-down arrow-fade-1"></i>
+                        <i class="fa fa-chevron-down arrow-fade-2"></i>
+                        <i class="fa fa-chevron-down arrow-fade-3"></i>
+                    </div>
+                </div>
+                <div class="carousel-content-right">
+                    <div class="price">
+                        Starting from INR 2.17 Crore
+                    </div>
+                    <button class="enquire-now mt-2">Enquire Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add additional slides with images -->
+        <div class="item">
+            <img src="gallery_1.png" alt="Gallery 1" class="carousel-image"> <!-- Image for the second slide -->
+            <div class="carousel-content">
+                <!-- Similar content structure as the first slide -->
+                <div class="carousel-content-left">
+                    <h2>Another Project</h2>
+                    <div class="location">
+                        <i class="fa fa-map-marker"></i> Location for Project
+                    </div>
+                </div>
+                <div class="carousel-content-middle">
+                    <div class="arrows">
+                        <i class="fa fa-chevron-down arrow-fade-1"></i>
+                        <i class="fa fa-chevron-down arrow-fade-2"></i>
+                        <i class="fa fa-chevron-down arrow-fade-2"></i>
+                    </div>
+                </div>
+                <div class="carousel-content-right">
+                    <div class="price">
+                        Starting from another price
+                    </div>
+                    <button class="enquire-now mt-2">Enquire Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Container for the section -->
+    <div class="container mt-5"> <!-- Container with margin-top -->
+        <div class="row"> <!-- Bootstrap row for layout -->
+            <!-- Left side with two headings and a paragraph -->
+            <div class="col-lg-8  "> <!-- Takes majority of the width -->
+                <div class="w-100"> <!-- Full-width content -->
+                    <div class="d-flex justify-content-between align-items-center"> <!-- Align button to the right -->
+                        <div class="text-sections">
+                            <div class="row">
+                                <div class="col-md-9 pt-5">
+                                    <h2 class="top-heading">BUILDING LIFESTYLE</h2> <!-- Top heading -->
+                                    <h3 class="bottom-heading">ELITE DEVELOPERS</h3> <!-- Bottom heading -->
+                                </div>
+                                <div class="col-md-3 pt-5">
+                                    <a href="#more-info" class="btn  btnsy">VIEW MORE</a>
+                                    <!-- Button slightly to the left -->
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <p class="description mt-4">Elite Developers, one of Kerala's leading Real Estate Developers, is
+                        committed towards premium quality, standards, and innovation. Four decades of rich experience in
+                        residential, commercial, and plotted real estate enables us to provide world-class living spaces
+                        mingling natural elements.</p> <!-- Paragraph -->
+                </div>
+            </div>
+
+            <!-- Right side with an image -->
+            <div class="col-lg-4  "> <!-- Smaller width for the image -->
+                <img src="Frame 316.png" alt="Description of Image" class="img-fluid"> <!-- Responsive image -->
+            </div>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <div class="heading-container">
+            <hr class="line">
+            <span class="heading-text">FEATURED PROJECTS</span>
+            <hr class="line2">
+        </div>
+
+        <div class="project-text mt-5">
+            <p>
+                Elite developers focus on building Luxury Apartments, flats and villas. Our aim is to give luxury flats,
+                villas and apartments to our customers at international standards
+            </p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="owl-carousel owl-theme owl-carousel-custom"> <!-- Owl Carousel with custom pagination -->
+            <!-- Slide 1 -->
+            <div class="item" data-dot="Slide 1"> <!-- Data attribute for custom pagination -->
+              <img src="banner_1.png" class="d-block w-100" alt="..." style="filter: brightness(70%);">
+
+              <div class="carousel-caption" style="position: absolute; bottom: 10px; left: 10px;">
+                <h1 class="responsive-heading">ELITE SAMRUDDHI</h1> <!-- Responsive Heading -->
+                <p>KAZHAKOOTAM, TRIVANDRUM</p>
+              </div>
+            </div>
+          
+            <!-- Slide 2 -->
+            <div class="item" data-dot="Slide 2"> <!-- Data attribute for custom pagination -->
+              <img src="banner_elite.jpeg" class="d-block w-100" alt="..." style="filter: brightness(70%);">
+              <div class="carousel-caption" style="position: absolute; bottom: 10px; left: 10px;">
+                <h1 class="responsive-heading">Another Title</h1>
+                <p>Another Subtitle</p>
+              </div>
+            </div>
+
+          </div>
+    </div>
+
+      
+
+    <div class="container mt-5">
+        <div class="heading-container">
+            <hr class="line">
+            <span class="heading-text">LOCATIONS</span>
+            <hr class="line2">
+        </div>
+        <div class="project-text mt-5">
+            <p>Elite developers focus on building Luxury Apartments, flats and villas. Our aim is to give luxury flats,
+                villas and apartments to our customers at international standards</p>
+        </div>
+    </div>
+
+
+    <div class="container mt-5">
+        <!-- Swiper Carousel -->
+        <div class="swiper">
+            <div class="swiper-wrapper"> <!-- Swiper wrapper containing slides -->
+                <div class="swiper-slide">
+                    <div class="image-container">
+                        <img src="Frame 245.png" alt="Image 1" class="carousel-images">
+
+
+                    </div>
+                    <h3 class="carousel-heading">THRISSUR</h3> <!-- Heading below image -->
+
+                </div> <!-- First slide -->
+                <div class="swiper-slide">
+                    <div class="image-container">
+                        <img src="Frame 246.png" alt="Image 2" class="carousel-images">
+
+
+                    </div>
+                    <h3 class="carousel-heading">THRISSUR</h3> <!-- Heading below image -->
+
+                </div> <!-- Second slide -->
+                <div class="swiper-slide">
+                    <div class="image-container">
+                        <img src="Frame 247.png" alt="Image 3" class="carousel-images">
+
+
+                    </div>
+                    <h3 class="carousel-heading">THIRUVANANTHAPURAM</h3> <!-- Heading below image -->
+
+                </div> <!-- Third slide -->
+                <div class="swiper-slide">
+                    <div class="image-container">
+                        <img src="gallery_1.png" alt="Image 4" class="carousel-images">
+
+                    </div>
+                    <h3 class="carousel-heading">THIRUVANANTHAPURAM</h3> <!-- Heading below image -->
+                </div> <!-- Fourth slide -->
+            </div>
+
+            <!-- Custom Navigation Buttons -->
+            <div class="swiper-button-prev custom-prev"></div> <!-- Custom previous button -->
+            <div class="swiper-button-next custom-next"></div> <!-- Custom next button -->
+
+            <!-- Custom Pagination -->
+
+        </div>
+    </div>
+    <div class="bottom-button-container"> <!-- Container for bottom button -->
+        <button class="bottom-button">ALL LOCATIONS</button> <!-- Button with straight edges -->
+    </div>
+
+
+    <div class="container-fluid py-5 vision-area mt-5" style="background-color: #606C38; color: #ffffff;">
+        <div class="container">
+            <div class="mission-text">
+                <h2>We're helping hundreds of customers find their dream homes</h2>
+            </div>
+            <div class="section container" style="margin-top: 70px;"> <!-- Main section -->
+                <div class="part"> <!-- First section -->
+                    <h2>601</h2>
+                    <p>UNITS & PLOTS</p>
+                </div>
+
+                <div class="divider"></div> <!-- Divider line -->
+
+                <div class="part"> <!-- Second section -->
+                    <h2>3600</h2>
+                    <p>CENTS</p>
+                </div>
+
+                <div class="divider"></div> <!-- Divider line -->
+
+                <div class="part"> <!-- Third section -->
+                    <h2>440000</h2>
+                    <p>Sq.ft</p>
+                </div>
+            </div>
+            <div class="heading-containers mt-5">
+                <hr class="lines">
+                <span class="heading-texts">OUR VISION</span>
+                <hr class="lines2">
+            </div>
+            <div class="vision-paragraph" style="margin-top: 70px;">
+                <p>Elite Developers aims to be the most premier Infrastructure & Real estate developer with superior
+                    quality standards, design, sustainable practices & professionalism, which will reflect in our
+                    people, projects, processes and systems.</p>
+            </div>
+            <div class="row mt-5"> <!-- Margin-top for spacing -->
+                <div class="col-sm-12 d-flex justify-content-center">
+                    <a href="#" class="btn view-btn">VIEW OUR BUYERS GUIDE</a> <!-- Button with Bootstrap style -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="container text-center my-5"> <!-- Container with padding -->
+        <div class="row raw-log"> <!-- Bootstrap row -->
+            <!-- Each column contains an image/logo -->
+            <div class="col-sm-2 offset-sm-1 logo-sec pt-5"> <!-- First image with offset -->
+                <img src="scrl1 2.png" alt="Logo 1" class="img-fluid"> <!-- Responsive image -->
+            </div>
+
+            <div class="col-sm-2 logo-sec pt-5"> <!-- Second image -->
+                <img src="scrl2 2.png" alt="Logo 2" class="img-fluid"> <!-- Responsive image -->
+            </div>
+
+            <div class="col-sm-2 logo-sec pt-5"> <!-- Third image -->
+                <img src="scr 2.png" alt="Logo 3" class="img-fluid"> <!-- Responsive image -->
+            </div>
+
+            <div class="col-sm-2 logo-sec pt-5"> <!-- Fourth image -->
+                <img src="scrl5 2.png" alt="Logo 4" class="img-fluid"> <!-- Responsive image -->
+            </div>
+
+            <div class="col-sm-2 logo-sec pt-5"> <!-- Fifth image -->
+                <img src="scrl6 2.png" alt="Logo 5" class="img-fluid"> <!-- Responsive image -->
+            </div>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <div class="heading-container mt-5">
+            <hr class="line">
+            <span class="heading-text">WHAT OUR CUSTOMERS SAYS</span>
+            <hr class="line2">
+        </div>
+
+    </div>
+    <div class="container owle">
+        <div class="owl-carousel owl-carousel-tetimonial" style="margin-top: 70px;"> <!-- Owl Carousel wrapper -->
+            <!-- First Slide -->
+            <div class="item">
+                <div class="cust-para mt-5">
+                    <p>"The satisfaction of customers is paramount for Elite Developers, a real estate developer who has a
+                        strong reputation of delivering quality projects on time. Have a look as Mr.K.S.Prasad & family express
+                        their happiness on moving into Elite Insignia."</p>
+                </div>              
+                <iframe class="mt-3" width="560" height="315" src="https://www.youtube.com/embed/f6Zuv0KrEUc?si=1ZDOmNCyHieGzLwT" title="YouTube video playe" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> <!-- YouTube video -->
+            </div>
+          
+            <!-- Second Slide -->
+            <div class="item">
+                <div class="cust-para mt-5">
+                    <p>"The satisfaction of customers is paramount for Elite Developers, a real estate developer who has a
+                        strong reputation of delivering quality projects on time. Have a look as Mr.K.S.Prasad & family express
+                        their happiness on moving into Elite Insignia."</p>
+                </div>
+                    <iframe class="mt-3" width="560" height="315" src="https://www.youtube.com/embed/VIDEO_ID_2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> <!-- YouTube video -->
+            </div>
+          
+            <!-- Third Slide -->
+            <div class="item">
+                <div class="cust-para mt-5">
+                    <p>"The satisfaction of customers is paramount for Elite Developers, a real estate developer who has a
+                        strong reputation of delivering quality projects on time. Have a look as Mr.K.S.Prasad & family express
+                        their happiness on moving into Elite Insignia."</p>
+                </div>
+                        <iframe class="mt-3" width="560" height="315" src="https://www.youtube.com/embed/VIDEO_ID_3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> <!-- YouTube video -->
+            </div>
+          </div>
+          <div class="carousel-navigation"> <!-- Container for navigation buttons -->
+            <button id="prevButton" class="custom-nav-btn">
+                <i class="fas fa-arrow-left"></i> <!-- Left arrow icon -->
+              </button>
+              <button id="nextButton" class="custom-nav-btn">
+                <i class="fas fa-arrow-right"></i> <!-- Right arrow icon -->
+              </button>
+          </div>
+    </div>
+
+
+    <div class="container" style="margin-top: 60px;">
+        <div class="heading-container">
+            <hr class="line">
+            <span class="heading-text">WHAT WE DO</span>
+            <hr class="line2">
+        </div>
+        <div class="what-text mt-5">
+            <p>Redefining living spaces and creating iconic landmarks through an unswerving passion
+                for quality and the philosophy of self-reliance</p>
+        </div>
+    </div>
+
+
+    <div class="container mt-5">
+        <div class="row justify-content-between">
+            <div class="col-lg-4 col-md-6 col-sm-12 text-center pt-5">
+                <div class="image-what">
+                    <img src="Frame 246.png" alt="what-we-do-image" class="img-fluid">
+                </div>
+                <div class="what-heading mt-3">
+                    <h4 class="text-center">RESIDENTIAL</h4>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12 text-center pt-5">
+                <div class="image-what">
+                    <img src="Frame 245.png" alt="what-we-do-image" class="img-fluid">
+                </div>
+                <div class="what-heading mt-3">
+                    <h4 class="text-center">COMMERCIAL</h4>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12 text-center pt-5">
+                <div class="image-what">
+                    <img src="Frame 247.png" alt="what-we-do-image" class="img-fluid">
+                </div>
+                <div class="what-heading mt-3">
+                    <h4 class="text-center">INDUSTRIAL</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="container-fluid py-5 mt-5 find-section" style="background-color: #F8F3E7;padding: 40px;">
+    <div class="container"> <!-- Outer container with padding and background color -->
+        <div class="row align-items-center"> <!-- Center the content vertically -->
+          <!-- Left Section with Text -->
+          <div class="col-lg-6 pt-5"> <!-- 6 out of 12 columns -->
+            <div class="find-heading">
+                <h2>Finding your next home is just a click away.</h2> <!-- Main heading -->
+
+            </div>
+            <div class="fin-para mt-3">
+                <p>
+                    Elite Developers is run by professionals with a passion for quality and offers you spacious luxury apartments
+                    and villa homes developed with an eye for great design employing the best resources. Check out the uber-luxurious projects
+                    such as Elite Insignia apartments... <br><br>
+                    We build apartments for residential and commercial aspects. Elite Insignia is one of our best residential projects in
+                    the heart of Thrissur. It can be easily connected with the important locations in Thrissur city.
+                  </p>
+            </div>
+
+            <button class="btn read-btn mt-3">READ MORE</button> <!-- Button with Bootstrap styling -->
+          </div>
+      
+          <!-- Right Section with Image -->
+          <div class="col-lg-6 text-center pt-5"> <!-- 6 out of 12 columns, centered -->
+            <img src="Frame 291.png" alt="Room interior" class="img-fluid" style="max-width: 100%;"/> <!-- Responsive image -->
+          </div>
+        </div>
+      </div>
+</div>
+<div class="container mt-5">
+    <!-- Owl Carousel Wrapper -->
+<div class="owl-carousel owl-theme owl-new-section" style="padding: 20px;"> <!-- Initialize the Owl Carousel -->
+    <!-- First Slide -->
+    <div class="item text-center">
+      <img src="Frame 292.png" alt="Image 1" class="img-fluid"> <!-- Top image -->
+      <p>March 4, 2021</p> <!-- Date -->
+      <h4 class="news-heading">National Safety Day at Insignia</h4> <!-- Heading -->
+    </div>
+  
+    <!-- Second Slide -->
+    <div class="item text-center">
+      <img src="Frame 302.png" alt="Image 2" class="img-fluid"> <!-- Top image -->
+      <p>April 15, 2021</p> <!-- Date -->
+      <h4 class="news-heading">Environmental Awareness Day</h4> <!-- Heading -->
+    </div>
+  
+    <!-- Third Slide -->
+    <div class="item text-center">
+      <img src="Frame 306.png" alt="Image 3" class="img-fluid"> <!-- Top image -->
+      <p>May 10, 2021</p> <!-- Date -->
+      <h4 class="news-heading">Employee Health and Wellness</h4> <!-- Heading -->
+    </div>
+  </div>
+    <!-- Custom Navigation Buttons -->
+    <div class="custom-navigation text-center" style="padding-top: 10px;">
+        <button id="customPrev" class="btn custom-nav-btn" style="border-radius: 0px;">
+            <i class="fas fa-arrow-left"></i>
+        </button> <!-- Custom "Prev" button -->
+        <button id="customNext" class="btn custom-nav-btn" style="border-radius: 0px;">
+            <i class="fas fa-arrow-right"></i>
+        </button> <!-- Custom "Next" button -->
+      </div>
+</div>
+<div class="container mt-5">
+    <div class="heading-container">
+        <hr class="line">
+        <span class="heading-text">SOCIAL MEDIA FEEDS</span>
+        <hr class="line2">
+    </div>
+</div>
+<div class="container" style="margin-top: 70px;">
+    <div class="row"> <!-- Main responsive row -->
+  
+      <!-- Instagram section -->
+      <div class="col-lg-4 col-md-6 col-sm-12 pt-5"> <!-- Adjusted for responsive design -->
+        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/elitedevelopersindia/" data-instgrm-version="13"></blockquote>
+        <script async src="//www.instagram.com/embed.js"></script>
+      </div>
+  
+      <!-- Facebook section -->
+      <div class="col-lg-4 col-md-6 col-sm-12 pt-5"> <!-- Adjusted for responsive design -->
+        <iframe
+          src="https://www.facebook.com/plugins/page.php?href=https://www.facebook.com/Elitedevlp&tabs=timeline&width=340&height=500"
+          width="320"
+          height="480"
+          style="border:none;overflow:hidden;"
+          frameborder="0"
+          allow="encrypted-media">
+        </iframe>
+      </div>
+  
+      <!-- Twitter section -->
+      <div class="col-lg-4 col-md-12 col-sm-12 pt-5"> 
+<!-- Twitter Embed -->
+<!-- Twitter Profile Embed -->
+<a class="twitter-timeline" href="https://twitter.com/eliterealtydev">Tweets by Elite Developers</a>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+  
+      </div>
+  
+    </div>
+  </div>
+
+  
+
+  <footer class="footer bg-dark text-white py-5 mt-5">
+    <div class="container">
+        <div class="row">
+            <!-- First Section -->
+            <div class="col-md-4">
+                <!-- Logo and vertical line -->
+                <div class="logo-section">
+                    <img src="logo FOOD 2.png" alt="Logo" class="mb-3">
+                    <div class="vertical-line"></div>
+                    <h5 class=" title mt-3 mb-3"> <span>An Elite Foods <br><span>& Innovations </span><br><span>Group Enterprise</span> </span> </h5>
+                </div>
+                <!-- Heading -->
+               
+                <!-- Paragraph -->
+                <br><p  class="address">The Elite Group has been in the real estate business since 1995 and has been part of numerous projects that have stood the test of time.</p>
+               <br> <br><div class="d-flex justify-content-between">
+                    <img src="Frame 273.png" alt="Logo 1">
+                    <img src="BAI LOG 2.png" alt="Logo 2">
+                    <img src="Frame 274.png" alt="Logo 3">
+                </div>
+            </div>
+
+            <div class="col-md-1"></div> <!-- Adjust the column size for the desired gap -->
+
+        <!-- Second Section -->
+        <div class="col-md-4">
+            <!-- Second Section Content -->
+            <br><h5 class="mb-3 with-line">REACH US</h5>
+            <br><br><h6 class="with-line"> ADDRESS</h6>
+            <p class="address">Elite Gardenia Hills, Near Reliance <br><span>Petrol Pump, Puzhakkal P.O.,</span> <br> Thrissur – 680 553 Kerala, India</p>
+           <br><h6 class="with-line">CONTACT US</h6>
+            <p class="address">Mob: +91 99468 11111 <br><span>Tel: +91 487 2322120</span></p>
+            <br><h6 class="with-line">EMAIL</h6>
+            <p>sales@elitehomesindia.co.in</p>
+            <!-- Follow us icons -->
+           
+         </div>
+        
+        
+                        
+    
+        <!-- Third Section -->
+        <div class="col-md-2">
+            <!-- Third Section Content -->
+           <br> <h5 class="mb-3 with-line">PROJECTS</h5>
+            <br><br><a href="" class="address text-white">Villas in Thrissur</a>
+            <br><br><a href="" class="address text-white">Apartment in Tvm</a>
+            <br><br><a href="" class="address text-white">Upcoming Projects</a>
+           <br><br><a class="mb-3 text-white" href="">FAQs</a>
+           <br><br><a class="mb-3 text-white" href="">Help & Support</a>
+           <br><div class="subscription-box mt-5">
+            <form>
+                <div class="input-group">
+                    <input type="text" placeholder="Enter your email to subscribe"  class="form-control subscription-input"> 
+                    <button type="submit" class="btn btn-danger" style="border-radius: 0px;"><i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </form>
+        </div>
+        </div>
+    </div>
+    <br><br><br> <div class="follow-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+    </div>
+    
+    
+</div>
+</footer>
+  
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <!-- Custom JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="https://unpkg.com/swiper@9/swiper-bundle.min.js"></script>
+
+    <script>
+
+
+
+// Initialize Owl Carousel with custom pagination
+$(".owl-carousel-custom").owlCarousel({
+  loop: true, // Carousel loops infinitely
+  items: 1, // Display one slide at a time
+  autoplay: true, // Enable autoplay
+  autoplayTimeout: 3000, // Time between slides
+  autoplayHoverPause: false, // Pause on hover
+  nav: false, // Enable navigation
+  navText: ["<", ">"], // Custom navigation text/icons
+  dots: false, // Enable pagination
+  animateOut: 'fadeOut',
+  dotsData: true, // Custom pagination (use data attributes)
+  responsive: {
+    0: {
+      items: 1, // Mobile view displays one slide
+    },
+    600: {
+      items: 1, // Tablet view displays one slide
+    },
+    1000: {
+      items: 1, // Desktop view displays one slide
+    },
+  },
+});
+
+
+$(document).ready(function() {
+  var owl = $(".owl-new-section").owlCarousel({
+    items: 3, // Default display for larger screens
+    loop: true, // Infinite looping
+    margin: 30, // Set gap between slides to 30 pixels
+    autoplay: true, // Enable auto-play
+    autoplayHoverPause: true, // Pause on hover
+    nav: false, // Disable default navigation
+    responsive: {
+      0: { // Mobile view
+        items: 1, // One slide at a time
+      },
+      768: { // Tablet and larger views
+        items: 3, // Three slides at a time
+      },
+    },
+  });
+
+  // Custom navigation buttons binding
+  $("#customPrev").click(function() {
+    owl.trigger("prev.owl.carousel"); // Go to the previous slide
+  });
+
+  $("#customNext").click(function() {
+    owl.trigger("next.owl.carousel"); // Go to the next slide
+  });
+});
+
+
+
+
+
+
+
+var owl = $(".owl-carousel-tetimonial").owlCarousel({
+  items: 1,
+  loop: true,
+  autoplay: false,
+  nav: false, // Updated property for Owl Carousel 2.x
+  afterAction: function() {
+    // Reset YouTube videos to avoid overlap
+    var current = this.owl.currentItem;
+    this.owl.owlItems.forEach(function(item, index) {
+      if (index !== current) {
+        var iframe = $(item).find("iframe");
+        var src = iframe.attr("src");
+        iframe.attr("src", ""); 
+        iframe.attr("src", src); 
+      }
+    });
+  },
+});
+var owl = $(".owl-carousel-tetimonial").owlCarousel({
+  items: 1,
+  loop: true,
+  autoplay: true,
+  autoplayHoverPause: true, // Stops autoplay on hover
+  nav: false, // Disable default Owl Carousel navigation
+});
+
+$("#prevButton").click(function() {
+  owl.trigger("prev.owl.carousel"); // Navigate to the previous slide
+});
+
+$("#nextButton").click(function() {
+  owl.trigger("next.owl.carousel"); // Navigate to the next slide
+});
+
+
+
+        const swiper = new Swiper('.swiper', {
+            slidesPerView: 3, // Default for larger screens
+            spaceBetween: 30, // Space between slides
+            navigation: { // Custom navigation buttons
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev'
+            },
+            pagination: { // Pagination dots
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: 3, // Display 3 slides on screens 768px and above
+                    spaceBetween: 30,
+                },
+                0: { // Default for smaller screens
+                    slidesPerView: 1, // Display 1 slide for mobile view
+                    spaceBetween: 10,
+                },
+            },
+        });
+
+        // Carousel without custom pagination
+        $(".owl-carousel-main").owlCarousel({
+            loop: true,
+            items: 1,
+            autoplay: true,
+            autoplayTimeout: 3000,
+            autoplayHoverPause: false,
+            dots: false,
+            animateOut: 'fadeOut',
+            responsive: {
+                0: {
+                    items: 1,
+                    dots: false,
+                },
+                600: {
+                    items: 1,
+                    dots: false,
+                },
+                1000: {
+                    items: 1,
+                    dots: false,
+                },
+            },
+        });
+
+
+
+
+
+
+
+
+        $(document).ready(function () {
+            let initialLoad = true;
+
+            // Initial state
+            $('.menu').css('left', '-495px');
+            $('.menu').removeClass('active');
+
+            $('.menu-toggle').click(function () {
+                if ($('.menu').hasClass('active')) {
+                    // Close the menu
+                    $('.menu').removeClass('active');
+                    $('body').removeClass('menu-active');
+                    $('.menu').animate({
+                        left: '-495px'
+                    }, 800);
+                    $('.sub-menu').removeClass('active');
+                    $('.sub-menu').animate({
+                        right: '100%'  // Slide out to the left
+                    }, 800);
+                    initialLoad = true;
+                } else {
+                    // Open the menu
+                    $('.menu').addClass('active');
+                    $('body').addClass('menu-active');
+                    $('.menu').animate({
+                        left: '0px'
+                    }, initialLoad ? 800 : 0);
+                    initialLoad = false;
+                }
+            });
+
+            $('.close-menu').click(function () {
+                // Close the menu with delay
+                $('.menu').animate({
+                    left: '-495px'
+                }, 800, function () {
+                    $('.menu').removeClass('active');
+                    $('body').removeClass('menu-active');
+                    initialLoad = true;
+                });
+            });
+
+            // Toggle sub-menu
+            $('.with-arrow').click(function (e) {
+                e.preventDefault();
+                let subMenu = $(this).next('.sub-menu');
+                if (subMenu.hasClass('active')) {
+                    subMenu.animate({
+                        right: '90%'  // Slide out to the left
+                    }, 450, function () {
+                        subMenu.removeClass('active');
+                    });
+                } else {
+                    $('.sub-menu').removeClass('active');
+                    $('.sub-menu').animate({
+                        right: '100%'  // Slide out to the left
+                    }, 450);
+                    subMenu.animate({
+                        right: '0'  // Slide in from the left
+                    }, 450).addClass('active');
+                }
+            });
+
+            // Close sub-menu
+            $('.close-submenu').click(function (e) {
+                e.preventDefault();
+                let subMenu = $(this).closest('.sub-menu');
+                subMenu.animate({
+                    right: '100%'  // Slide out to the left
+                }, 800, function () {
+                    subMenu.removeClass('active');
+                });
+            });
+
+            $(document).on('click', function (e) {
+                if (!$(e.target).closest('.menu').length && !$(e.target).closest('.menu-toggle').length) {
+                    if ($('.menu').hasClass('active')) {
+                        $('.menu').removeClass('active');
+                        $('body').removeClass('menu-active');
+                        $('.menu').animate({
+                            left: '-495px'
+                        }, 800);
+                        $('.sub-menu').removeClass('active');
+                        $('.sub-menu').animate({
+                            right: '100%'  // Slide out to the left
+                        }, 800);
+                        initialLoad = true;
+                    }
+                }
+            });
+        });
+        window.addEventListener('scroll', function () {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 0) {
+                header.classList.add('header-bg');
+            } else {
+                header.classList.remove('header-bg');
+            }
+        });
+
+        // Open the chat window when WhatsApp icon is clicked
+function openChatWindow() {
+  document.getElementById("chat-window").style.display = "block"; // Display the chat window
+}
+
+// Close the chat window
+function closeChatWindow() {
+  document.getElementById("chat-window").style.display = "none"; // Hide the chat window
+}
+
+// Global variable to store the bot's responses
+const botResponses = [
+  "Thanks for reaching out. We'll contact you shortly.",
+  "Is there anything else you'd like to know about our services?",
+  "Feel free to ask any questions. We will redirect to the main chat window.",
+];
+
+// Counter to track how many messages the bot has sent
+let botMessageCount = 0;
+
+function sendMessage() {
+  const userInput = document.getElementById("user-input");
+  const chatContent = document.getElementById("chat-content");
+
+  // Add user's message to chat content
+  const userMessage = document.createElement("div");
+  userMessage.textContent = userInput.value; // User's message
+  userMessage.className = "user-message"; // Class for styling
+  chatContent.appendChild(userMessage);
+
+  // Clear the input field after sending
+  userInput.value = "";
+
+  // Bot's response
+  const botResponse = document.createElement("div");
+  if (botMessageCount < botResponses.length) {
+    botResponse.textContent = botResponses[botMessageCount]; // Get the response from the queue
+    botResponse.className = "bot-message"; // Class for styling
+    chatContent.appendChild(botResponse);
+
+    // Increment the bot's message count
+    botMessageCount++;
+  }
+
+  // Scroll to the bottom of the chat content
+  chatContent.scrollTop = chatContent.scrollHeight;
+
+  // Redirect to WhatsApp after the last bot response
+  if (botMessageCount === botResponses.length) {
+    setTimeout(() => {
+      redirectToWhatsApp(); // Redirect to WhatsApp
+    }, 5000); // Redirect after 5 seconds
+  }
+}
+
+// Redirect to WhatsApp
+function redirectToWhatsApp() {
+  window.location.href = "https://wa.me/1234567890"; // Redirect to a specific number
+}
+
+
+    </script>
+</body>
+
+</html>
